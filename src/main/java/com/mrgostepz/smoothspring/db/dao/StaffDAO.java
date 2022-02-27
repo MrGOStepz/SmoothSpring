@@ -6,6 +6,7 @@ import com.mrgostepz.smoothspring.db.rowmapper.StaffRowMapper;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_PASSWO
 
 
 //https://mkyong.com/spring/spring-jdbctemplate-querying-examples/
+@Service
 public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer> {
 
     @Autowired

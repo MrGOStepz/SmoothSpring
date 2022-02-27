@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 public interface StaffRepository extends CrudRepository<Staff, Integer> {
     List<Staff> getByPassword(String password);

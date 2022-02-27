@@ -1,8 +1,10 @@
 package com.mrgostepz.smoothspring.service;
 
+import com.mrgostepz.smoothspring.db.dao.StaffDAO;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import com.mrgostepz.smoothspring.db.repository.StaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
 public class StaffService {
 
     @Autowired
-    private StaffRepository staffRepository;
+    StaffRepository staffRepository;
 
     public List<Staff> getAllStaff() {
         return staffRepository.getAll();

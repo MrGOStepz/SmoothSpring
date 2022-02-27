@@ -1,5 +1,7 @@
 package com.mrgostepz.smoothspring.db.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
 public interface CrudRepository<T,ID> {

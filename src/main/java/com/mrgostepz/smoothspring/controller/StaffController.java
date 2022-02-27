@@ -24,6 +24,22 @@ class StaffController {
 
     @Autowired
     private StaffService staffService;
+
+    @GetMapping(path="/all")
+    public @ResponseBody Iterable<Staff> getAllStaff() {
+        return staffService.getAllStaff();
+    }
+
+    @GetMapping(path="/{password}")
+    public @ResponseBody List<Staff> getStaffByPassword(@PathVariable String password) {
+        return staffService.getStaffByPassword(password);
+    }
+
+    @GetMapping(path="/{id}")
+    public @ResponseBody Staff getStaffById(@PathVariable int id) {
+        return staffService.getAllStaffById(id);
+    }
+
 //    private final EmployeeRepository repository;
 //
 //    EmployeeController(EmployeeRepository repository) {
@@ -51,20 +67,7 @@ class StaffController {
         return "Saved";
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Staff> getAllStaff() {
-        return staffService.getAllStaff();
-    }
 
-    @GetMapping(path="/{password}")
-    public @ResponseBody List<Staff> getStaffByPassword(@PathVariable String password) {
-        return staffService.getStaffByPassword(password);
-    }
-
-    @GetMapping(path="/{id}")
-    public @ResponseBody Staff getStaffById(@PathVariable int id) {
-        return staffService.getAllStaffById(id);
-    }
 //    // end::get-aggregate-root[]
 //
 //    @PostMapping("/employees")
