@@ -30,7 +30,7 @@ class StaffController {
         return staffService.getAllStaff();
     }
 
-    @GetMapping(path="/{password}")
+    @GetMapping(path="/password/{password}")
     public @ResponseBody List<Staff> getStaffByPassword(@PathVariable String password) {
         return staffService.getStaffByPassword(password);
     }
