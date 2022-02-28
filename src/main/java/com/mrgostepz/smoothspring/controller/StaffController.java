@@ -27,6 +27,7 @@ class StaffController {
 
     @GetMapping(path="/all")
     public @ResponseBody Iterable<Staff> getAllStaff() {
+        logger.info("Hello");
         return staffService.getAllStaff();
     }
 
