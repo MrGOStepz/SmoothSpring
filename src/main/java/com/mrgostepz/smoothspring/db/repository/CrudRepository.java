@@ -7,8 +7,7 @@ import java.util.List;
 public interface CrudRepository<T,ID> {
    List<T> getAll();
    T getById(ID id);
-   Boolean add(T t);
+   Integer add(T t);
    Boolean update(T t);
    Boolean deleteById(ID id);
-
 }
