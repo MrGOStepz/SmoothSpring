@@ -19,33 +19,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 //https://mkyong.com/spring-boot/spring-rest-error-handling-example/
+//http://localhost:8080/spring-mvc-basics/foos?id=abc
+// @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
-@RequestMapping(path = "/staff")
+@RequestMapping(path = "api/v1/staff")
 class StaffController {
 
     private static final Logger logger = LogManager.getLogger(StaffController.class);
 
-    @Autowired
-    private StaffService staffService;
+    private final StaffService staffService;
+
+    public StaffController(StaffService staffService) {
+        this.staffService = staffService;
+    }
 
     @GetMapping(path = "/all")
     @ResponseBody
     public ResponseEntity<List<Staff>> getAllStaff() {
-        try {
-            List<Staff> staff = staffService.getAllStaff();
-            return new ResponseEntity<>(staff, HttpStatus.OK);
-        } catch (RecordNotFoundException ex) {
-            throw ex;
-        } catch (DataAccessException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw ex;
-        }
+        return new ResponseEntity<>(staffService.getAllStaff(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
@@ -70,15 +65,12 @@ class StaffController {
         }
     }
 
-    //http://localhost:8080/spring-mvc-basics/foos?id=abc
-    // @RequestParam means it is a parameter from the GET or POST request
-
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewStaff(@RequestBody Staff staff) {
         try {
             staffService.addNewStaff(staff);
-            return new ResponseEntity<>(String.format("Add new staff successfully: %s" , staff.toString()), HttpStatus.CREATED);
+            return new ResponseEntity<>(String.format("Add new staff successfully: %s", staff.toString()), HttpStatus.CREATED);
         } catch (Exception ex) {
             throw ex;
         }
@@ -103,6 +95,4 @@ class StaffController {
             throw ex;
         }
     }
-
-
 }

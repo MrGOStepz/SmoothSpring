@@ -33,8 +33,11 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
 
     private static final Logger logger = LogManager.getLogger(StaffDAO.class);
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public StaffDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Staff> getAll() {
