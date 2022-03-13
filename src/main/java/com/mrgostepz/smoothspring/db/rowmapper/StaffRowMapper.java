@@ -20,7 +20,7 @@ public class StaffRowMapper implements RowMapper<Staff> {
     @Override
     public Staff mapRow(ResultSet rs, int rowNum) throws SQLException {
         Staff staff = new Staff();
-        staff.setStaffId(rs.getInt(COL_STAFF_ID));
+        staff.setId(rs.getInt(COL_STAFF_ID));
         staff.setFirstName(rs.getString(COL_FIRST_NAME));
         staff.setLastName(rs.getString(COL_LAST_NAME));
         staff.setPhone(rs.getString(COL_PHONE));

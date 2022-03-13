@@ -1,8 +1,8 @@
 package com.mrgostepz.smoothspring.service;
 
+import com.mrgostepz.smoothspring.db.repository.CustomerRepository;
 import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
-import com.mrgostepz.smoothspring.model.db.Staff;
-import com.mrgostepz.smoothspring.db.repository.StaffRepository;
+import com.mrgostepz.smoothspring.model.db.Customer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -10,68 +10,67 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StaffService {
-    private static final Logger logger = LogManager.getLogger(StaffService.class);
+public class CustomerService {
+    private static final Logger logger = LogManager.getLogger(CustomerService.class);
 
-    private final StaffRepository staffRepository;
+    private final CustomerRepository customerRepository;
 
-    public StaffService(StaffRepository staffRepository) {
-        this.staffRepository = staffRepository;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-    public List<Staff> getAllStaff() {
-        List<Staff> staffList = staffRepository.getAll();
-        if (staffList == null) {
-            throw new RecordNotFoundException("There is no record in staff table.");
+    public List<Customer> getAllCustomer() {
+        List<Customer> customerList = customerRepository.getAll();
+        if (customerList == null) {
+            throw new RecordNotFoundException("There is no record in customer table.");
         }
-        logger.info(staffList);
-        return staffRepository.getAll();
+        logger.info(customerList);
+        return customerRepository.getAll();
     }
 
-    public Staff getAllStaffById(int id) {
-        Staff staff = staffRepository.getById(id);
-        if (staff == null) {
-            throw new RecordNotFoundException("There is no staff in this id.");
+    public Customer getAllCustomerById(int id) {
+        Customer customer = customerRepository.getById(id);
+        if (customer == null) {
+            throw new RecordNotFoundException("There is no customer in this id.");
         }
-        logger.info("Staff {}", staff);
-        return staff;
+        logger.info("Customer {}", customer);
+        return customer;
     }
 
-    public Staff getStaffByPassword(String password) {
-        List<Staff> staffList = staffRepository.getByPassword(password);
-        if (staffList == null) {
-            throw new RecordNotFoundException("There is no staff in this password.");
+    public Customer getCustomerByPhone(String phone) {
+        Customer customer = customerRepository.getCustomerInfoByPhone(phone);
+        if (customer == null) {
+            throw new RecordNotFoundException("There is no customer in this phone.");
         }
-        Staff staff = staffList.get(0);
-        logger.info("Staff {}", staff);
-        return staff;
+        logger.info("Customer {}", customer);
+        return customer;
     }
 
-    public void addNewStaff(Staff staff) {
-        int staffId = staffRepository.add(staff);
-        staff.setId(staffId);
-        if (staffId > 0) {
-            logger.info("Add new staff Successfully: {}", staff);
+    public void addNewCustomer(Customer customer) {
+        int customerId = customerRepository.add(customer);
+        customer.setId(customerId);
+        if (customerId > 0) {
+            logger.info("Add new customer Successfully: {}", customer);
         } else {
-            logger.warn("Cannot add new staff: {}", staff);
+            logger.warn("Cannot add new customer: {}", customer);
             throw new RecordNotFoundException("Cannot Create");
         }
     }
 
-    public void updateStaff(Staff staff) {
-        if (Boolean.TRUE.equals(staffRepository.update(staff))) {
-            logger.info("Update staff Successfully: {}", staff);
+    public void updateCustomer(Customer customer) {
+        if (Boolean.TRUE.equals(customerRepository.update(customer))) {
+            logger.info("Update customer Successfully: {}", customer);
         } else {
-            logger.warn("Cannot Update staff: {}", staff);
+            logger.warn("Cannot Update customer: {}", customer);
         }
 
     }
 
-    public void deleteStaff(int id) {
-        if (Boolean.TRUE.equals(staffRepository.deleteById(id))) {
-            logger.info("Delete staff Successfully: {}", id);
+    public void deleteCustomer(int id) {
+        if (Boolean.TRUE.equals(customerRepository.deleteById(id))) {
+            logger.info("Delete customer Successfully: {}", id);
         } else {
-            logger.warn("Cannot Delete staff: {}", id);
+            logger.warn("Cannot Delete customer: {}", id);
         }
     }
 }

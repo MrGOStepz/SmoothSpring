@@ -6,7 +6,6 @@ import com.mrgostepz.smoothspring.db.rowmapper.StaffRowMapper;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ import java.util.List;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_ADD_STAFF;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_DELETE_STAFF;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_ALL_STAFF;
+import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_COLUMN;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_ID;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_PASSWORD;
 import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_UPDATE_STAFF;
@@ -81,13 +81,13 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    staff.setStaffId(generatedKeys.getInt(1));
+                    staff.setId(generatedKeys.getInt(1));
                 }
                 else {
                     throw new SQLException("Creating staff failed, no ID obtained.");
                 }
             }
-            return staff.getStaffId();
+            return staff.getId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
@@ -108,7 +108,7 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
                     staff.getClockStatusId(),
                     staff.getPassword(),
                     staff.getIsActive(),
-                    staff.getStaffId());
+                    staff.getId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
@@ -128,7 +128,17 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
     }
 
     @Override
-    public List<Staff> getByPassword(String password) {
+    public List<Staff> getStaffInfoByColumn(String columnName, String value) {
+        try {
+            return jdbcTemplate.query(SQL_GET_STAFF_BY_COLUMN, new StaffRowMapper(), columnName, value);
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
+    public List<Staff> getStaffInfoByPassword(String password) {
         try {
             return jdbcTemplate.query(SQL_GET_STAFF_BY_PASSWORD, new StaffRowMapper(), password);
         } catch (DataAccessException ex) {

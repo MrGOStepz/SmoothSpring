@@ -5,7 +5,6 @@ import com.mrgostepz.smoothspring.model.db.Staff;
 import com.mrgostepz.smoothspring.db.repository.StaffRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,8 +13,11 @@ import java.util.List;
 public class StaffService {
     private static final Logger logger = LogManager.getLogger(StaffService.class);
 
-    @Autowired
-    StaffRepository staffRepository;
+    private final StaffRepository staffRepository;
+
+    public StaffService(StaffRepository staffRepository) {
+        this.staffRepository = staffRepository;
+    }
 
     public List<Staff> getAllStaff() {
         List<Staff> staffList = staffRepository.getAll();
@@ -36,7 +38,7 @@ public class StaffService {
     }
 
     public Staff getStaffByPassword(String password) {
-        List<Staff> staffList = staffRepository.getByPassword(password);
+        List<Staff> staffList = staffRepository.getStaffInfoByPassword(password);
         if (staffList == null) {
             throw new RecordNotFoundException("There is no staff in this password.");
         }
@@ -47,7 +49,7 @@ public class StaffService {
 
     public void addNewStaff(Staff staff) {
         int staffId = staffRepository.add(staff);
-        staff.setStaffId(staffId);
+        staff.setId(staffId);
         if (staffId > 0) {
             logger.info("Add new staff Successfully: {}", staff);
         } else {

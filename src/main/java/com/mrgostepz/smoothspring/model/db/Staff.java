@@ -8,7 +8,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Staff {
-    private Integer staffId = 0;
+    private Integer Id = 0;
     private String firstName = "";
     private String lastName = "";
     private String phone = "";

@@ -1,13 +1,11 @@
 package com.mrgostepz.smoothspring.db.repository;
 
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-public interface CrudRepository<T,ID> {
+public interface CrudRepository<T,I> {
    List<T> getAll();
-   T getById(ID id);
+   T getById(I id);
    Integer add(T t);
    Boolean update(T t);
-   Boolean deleteById(ID id);
+   Boolean deleteById(I id);
 }

@@ -1,12 +1,12 @@
 package com.mrgostepz.smoothspring.db.dao;
 
 import com.mrgostepz.smoothspring.db.repository.CrudRepository;
-import com.mrgostepz.smoothspring.db.repository.StaffRepository;
+import com.mrgostepz.smoothspring.db.repository.CustomerRepository;
+import com.mrgostepz.smoothspring.db.rowmapper.CustomerRowMapper;
 import com.mrgostepz.smoothspring.db.rowmapper.StaffRowMapper;
-import com.mrgostepz.smoothspring.model.db.Staff;
+import com.mrgostepz.smoothspring.model.db.Customer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -19,30 +19,32 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_ADD_STAFF;
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_DELETE_STAFF;
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_ALL_STAFF;
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_ID;
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_PASSWORD;
-import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_UPDATE_STAFF;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_ADD_CUSTOMER;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_DELETE_CUSTOMER;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_GET_ALL_CUSTOMER;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_GET_CUSTOMER_BY_COLUMN;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_GET_CUSTOMER_BY_ID;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_GET_CUSTOMER_BY_PHONE;
+import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_UPDATE_CUSTOMER;
+import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_GET_STAFF_BY_COLUMN;
 
 
 //https://mkyong.com/spring/spring-jdbctemplate-querying-examples/
 @Service
-public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer> {
+public class CustomerDAO implements CustomerRepository, CrudRepository<Customer, Integer> {
 
-    private static final Logger logger = LogManager.getLogger(StaffDAO.class);
+    private static final Logger logger = LogManager.getLogger(CustomerDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
 
-    public StaffDAO(JdbcTemplate jdbcTemplate) {
+    public CustomerDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Staff> getAll() {
+    public List<Customer> getAll() {
         try {
-            return jdbcTemplate.query(SQL_GET_ALL_STAFF, new StaffRowMapper());
+            return jdbcTemplate.query(SQL_GET_ALL_CUSTOMER, new CustomerRowMapper());
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;
@@ -50,9 +52,9 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
     }
 
     @Override
-    public Staff getById(Integer id) {
+    public Customer getById(Integer id) {
         try {
-            return jdbcTemplate.queryForObject(SQL_GET_STAFF_BY_ID, new StaffRowMapper(), id);
+            return jdbcTemplate.queryForObject(SQL_GET_CUSTOMER_BY_ID, new CustomerRowMapper(), id);
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;
@@ -60,19 +62,21 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
     }
 
     @Override
-    public Integer add(Staff staff) {
+    public Integer add(Customer customer) {
         DataSource dataSource = jdbcTemplate.getDataSource();
         assert dataSource != null;
         try (Connection connection =  dataSource.getConnection();
-             PreparedStatement statement = connection.prepareStatement(SQL_ADD_STAFF,Statement.RETURN_GENERATED_KEYS)){
-            statement.setString(1, staff.getFirstName());
-            statement.setString(2, staff.getLastName());
-            statement.setString(3, staff.getPhone());
-            statement.setString(4, staff.getEmail());
-            statement.setInt(5, staff.getStaffPositionId());
-            statement.setInt(6, staff.getClockStatusId());
-            statement.setString(7, staff.getPassword());
-            statement.setInt(8, staff.getIsActive());
+             PreparedStatement statement = connection.prepareStatement(SQL_ADD_CUSTOMER,Statement.RETURN_GENERATED_KEYS)){
+            statement.setString(1, customer.getFirstName());
+            statement.setString(2, customer.getLastName());
+            statement.setString(3, customer.getPhone());
+            statement.setString(4, customer.getEmail());
+            statement.setString(5, customer.getAddress());
+            statement.setDate(6, customer.getDateOfBirth());
+            statement.setDate(7, customer.getLastActive());
+            statement.setString(8, customer.getCard());
+            statement.setInt(9, customer.getTotalOrder());
+            statement.setInt(10, customer.getIsActive());
 
             int affectedRows = statement.executeUpdate();
 
@@ -81,34 +85,37 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    staff.setStaffId(generatedKeys.getInt(1));
+                    customer.setId(generatedKeys.getInt(1));
                 }
                 else {
                     throw new SQLException("Creating staff failed, no ID obtained.");
                 }
             }
-            return staff.getStaffId();
+            return customer.getId();
         } catch (DataAccessException | SQLException ex) {
             logger.error(ex.getMessage());
             return -1;
         } finally {
-            logger.info("Create new staff: {}", staff);
+            logger.info("Create new Customer: {}", customer);
         }
     }
 
+
+
     @Override
-    public Boolean update(Staff staff) {
+    public Boolean update(Customer customer) {
         try {
-            int result = jdbcTemplate.update(SQL_UPDATE_STAFF,
-                    staff.getFirstName(),
-                    staff.getLastName(),
-                    staff.getPhone(),
-                    staff.getEmail(),
-                    staff.getStaffPositionId(),
-                    staff.getClockStatusId(),
-                    staff.getPassword(),
-                    staff.getIsActive(),
-                    staff.getStaffId());
+            int result = jdbcTemplate.update(SQL_UPDATE_CUSTOMER,
+                    customer.getFirstName(),
+                    customer.getLastName(),
+                    customer.getPhone(),
+                    customer.getEmail(),
+                    customer.getAddress(),
+                    customer.getDateOfBirth(),
+                    customer.getLastActive(),
+                    customer.getTotalOrder(),
+                    customer.getIsActive(),
+                    customer.getId());
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
@@ -119,7 +126,7 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
     @Override
     public Boolean deleteById(Integer id) {
         try {
-            int result = jdbcTemplate.update(SQL_DELETE_STAFF, id);
+            int result = jdbcTemplate.update(SQL_DELETE_CUSTOMER, id);
             return result == 1;
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
@@ -128,9 +135,19 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
     }
 
     @Override
-    public List<Staff> getByPassword(String password) {
+    public List<Customer> getCustomerInfoByColumn(String columnName, String value) {
         try {
-            return jdbcTemplate.query(SQL_GET_STAFF_BY_PASSWORD, new StaffRowMapper(), password);
+            return jdbcTemplate.query(SQL_GET_CUSTOMER_BY_COLUMN, new CustomerRowMapper(), columnName, value);
+        } catch (DataAccessException ex) {
+            logger.error(ex.getMessage());
+            throw ex;
+        }
+    }
+
+    @Override
+    public Customer getCustomerInfoByPhone(String phone) {
+        try {
+            return jdbcTemplate.queryForObject(SQL_GET_CUSTOMER_BY_PHONE, new CustomerRowMapper(), phone);
         } catch (DataAccessException ex) {
             logger.error(ex.getMessage());
             throw ex;
