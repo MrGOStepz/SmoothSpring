@@ -15,7 +15,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         String detail = ex.getLocalizedMessage();
-        ErrorResponse error = new ErrorResponse(0,"Record Not Found", detail);
+        ErrorResponse error = new ErrorResponse(0,"Something wrong in service", detail);
         return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -31,6 +31,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
         String detail = ex.getLocalizedMessage();
         ErrorResponse error = new ErrorResponse(0,"Record Not Found", detail);
         return new ResponseEntity(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(InsertRecordException.class)
+    public final ResponseEntity<Object> handleInsertErrorException(InsertRecordException ex, WebRequest request) {
+        String detail = ex.getLocalizedMessage();
+        ErrorResponse error = new ErrorResponse(0,"Something wrong in service.", detail);
+        return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SmoothException.class)

@@ -74,4 +74,14 @@ public class StaffService {
             logger.warn("Cannot Delete staff: {}", id);
         }
     }
+
+    public List<Staff> getStaffByColumn(String column, String value) {
+        List<Staff> staffList = staffRepository.getStaffInfoByColumn(column, value);
+        if (staffList == null) {
+            throw new RecordNotFoundException("There is no staff in this column.");
+        }
+        Staff staff = staffList.get(0);
+        logger.info("Staff {}", staff);
+        return staffList;
+    }
 }

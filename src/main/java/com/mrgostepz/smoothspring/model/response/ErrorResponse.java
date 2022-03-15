@@ -2,8 +2,6 @@ package com.mrgostepz.smoothspring.model.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
-
 public class ErrorResponse {
 
     public ErrorResponse(int errorId, String message, String detail) {
