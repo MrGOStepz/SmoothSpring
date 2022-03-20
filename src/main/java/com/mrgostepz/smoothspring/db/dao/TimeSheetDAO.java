@@ -27,14 +27,15 @@ import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_GET_CUSTOMER_BY_
 import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_UPDATE_CUSTOMER;
 
 
+//https://mkyong.com/spring/spring-jdbctemplate-querying-examples/
 @Service
-public class CustomerDAO implements CustomerRepository, CrudRepository<Customer, Integer> {
+public class TimeSheetDAO implements CustomerRepository, CrudRepository<Customer, Integer> {
 
-    private static final Logger logger = LogManager.getLogger(CustomerDAO.class);
+    private static final Logger logger = LogManager.getLogger(TimeSheetDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CustomerDAO(JdbcTemplate jdbcTemplate) {
+    public TimeSheetDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

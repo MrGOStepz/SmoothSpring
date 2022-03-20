@@ -69,8 +69,8 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
             statement.setString(2, staff.getLastName());
             statement.setString(3, staff.getPhone());
             statement.setString(4, staff.getEmail());
-            statement.setInt(5, staff.getStaffPositionId());
-            statement.setInt(6, staff.getClockStatusId());
+            statement.setString(5, staff.getStaffPosition());
+            statement.setString(6, staff.getClockStatus());
             statement.setString(7, staff.getPassword());
             statement.setInt(8, staff.getIsActive());
 
@@ -104,8 +104,8 @@ public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer>
                     staff.getLastName(),
                     staff.getPhone(),
                     staff.getEmail(),
-                    staff.getStaffPositionId(),
-                    staff.getClockStatusId(),
+                    staff.getStaffPosition(),
+                    staff.getClockStatus(),
                     staff.getPassword(),
                     staff.getIsActive(),
                     staff.getId());

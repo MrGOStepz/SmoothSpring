@@ -73,4 +73,14 @@ public class CustomerService {
             logger.warn("Cannot Delete customer: {}", id);
         }
     }
+
+    public List<Customer> getCustomerByColumn(String column, String value) {
+        List<Customer> customerList = customerRepository.getCustomerInfoByColumn(column, value);
+        if (customerList == null) {
+            throw new RecordNotFoundException("There is no customer in this column.");
+        }
+        Customer customer = customerList.get(0);
+        logger.info("Customer {}", customer);
+        return customerList;
+    }
 }

@@ -10,9 +10,9 @@ public class OrderDetail {
     private int productId;
     private int popupItemId;
     private int orderId;
-    private int cookStatusId;
+    private String cookStatus;
     private int productQuality;
-    private Float amount;
+    private Double amount;
     private String comment;
     private int isActive;
 }

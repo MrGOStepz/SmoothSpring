@@ -2,8 +2,8 @@ package com.mrgostepz.smoothspring.model.enumtype;
 
 public enum PaymentType {
     CASH("Cash"),
-    VISA("VISA"),
-    MASTER("Master"),
+    VISA("Visa"),
+    MASTER_CARD("MasterCard"),
     EFTPOS("Eftpos"),
     AMEX("Amex"),
     VOUCHER("Voucher"),

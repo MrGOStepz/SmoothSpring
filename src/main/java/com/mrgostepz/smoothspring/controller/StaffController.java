@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,53 +47,45 @@ class StaffController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<Staff> getStaffById(@PathVariable int id) {
-        try {
-            Staff staff = staffService.getAllStaffById(id);
-            return new ResponseEntity<>(staff, HttpStatus.OK);
-        } catch (RecordNotFoundException ex) {
-            throw ex;
-        }
+        Staff staff = staffService.getAllStaffById(id);
+        return new ResponseEntity<>(staff, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/")
+    @ResponseBody
+    public ResponseEntity<List<Staff>> getStaffById(@RequestParam String columnName, @RequestParam String value) {
+        List<Staff> staffList = staffService.getStaffByColumn(columnName, value);
+        return new ResponseEntity<>(staffList, HttpStatus.OK);
+
     }
 
     @PostMapping(path = "/password")
     @ResponseBody
     public ResponseEntity<Staff> getStaffByPassword(String password) {
-        try {
-            Staff staff = staffService.getStaffByPassword(password);
-            return new ResponseEntity<>(staff, HttpStatus.OK);
-        } catch (RecordNotFoundException ex) {
-            throw ex;
-        }
+        Staff staff = staffService.getStaffByPassword(password);
+        return new ResponseEntity<>(staff, HttpStatus.OK);
     }
 
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewStaff(@RequestBody Staff staff) {
-        try {
-            staffService.addNewStaff(staff);
-            return new ResponseEntity<>(String.format("Add new staff successfully: %s", staff.toString()), HttpStatus.CREATED);
-        } catch (Exception ex) {
-            throw ex;
-        }
+        staffService.addNewStaff(staff);
+        return new ResponseEntity<>(String.format("Add new staff successfully: %s", staff.toString()), HttpStatus.CREATED);
+
     }
+
 
     @PutMapping(path = "/update")
     public String updateStaff(@RequestBody Staff staff) {
-        try {
-            staffService.updateStaff(staff);
-            return String.format("Update Staff: %s completed.", staff);
-        } catch (Exception ex) {
-            throw ex;
-        }
+        staffService.updateStaff(staff);
+        return String.format("Update Staff: %s completed.", staff);
+
     }
 
     @DeleteMapping("/{id}")
     public String deleteStaff(@PathVariable int id) {
-        try {
-            staffService.deleteStaff(id);
-            return String.format("Delete Staff Id: %d completed.", id);
-        } catch (Exception ex) {
-            throw ex;
-        }
+        staffService.deleteStaff(id);
+        return String.format("Delete Staff Id: %d completed.", id);
+
     }
 }

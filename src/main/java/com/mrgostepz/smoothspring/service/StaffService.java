@@ -1,5 +1,6 @@
 package com.mrgostepz.smoothspring.service;
 
+import com.mrgostepz.smoothspring.exception.InsertRecordException;
 import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import com.mrgostepz.smoothspring.db.repository.StaffRepository;
@@ -54,7 +55,7 @@ public class StaffService {
             logger.info("Add new staff Successfully: {}", staff);
         } else {
             logger.warn("Cannot add new staff: {}", staff);
-            throw new RecordNotFoundException("Cannot Create");
+            throw new InsertRecordException("Cannot Create");
         }
     }
 

@@ -1,8 +1,5 @@
 package com.mrgostepz.smoothspring.controller;
 
-import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
-import com.mrgostepz.smoothspring.model.db.Customer;
-import com.mrgostepz.smoothspring.model.db.Customer;
 import com.mrgostepz.smoothspring.model.db.Customer;
 import com.mrgostepz.smoothspring.service.CustomerService;
 import org.apache.logging.log4j.LogManager;
@@ -28,13 +25,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/customer")
-class CustomerController {
+class ProductController {
 
-    private static final Logger logger = LogManager.getLogger(CustomerController.class);
+    private static final Logger logger = LogManager.getLogger(ProductController.class);
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
+    public ProductController(CustomerService customerService) {
         this.customerService = customerService;
     }
 

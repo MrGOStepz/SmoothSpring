@@ -8,7 +8,6 @@ import lombok.Setter;
 public class Product {
     private int id;
     private String productName;
-    private String shortName;
     private String description;
     private int isAvailable;
     private int productIngredientId;

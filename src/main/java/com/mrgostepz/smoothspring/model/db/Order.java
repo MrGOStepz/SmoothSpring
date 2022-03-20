@@ -13,8 +13,8 @@ public class Order {
     private int orderTypeId;
     private int staffId;
     private int tableSectionId;
-    private int orderStatusId;
-    private int paymentId;
+    private String orderStatus;
+    private String payment;
     private int customerId;
     private int isActive;
 }

@@ -5,7 +5,7 @@ public enum StaffPosition {
     MANAGER("Manager"),
     STAFF("Staff"),
     TRAINEE("Trainee"),
-    GUEST("GUEST");
+    GUEST("Guest");
 
     private final String value;
 

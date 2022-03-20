@@ -8,7 +8,7 @@ import lombok.Setter;
 public class LocationMenu {
     private int id;
     private int productId;
-    private int location_tab_id;
+    private int locationTabId;
     private int columnNumber;
     private int rowNumber;
     private int isActive;
