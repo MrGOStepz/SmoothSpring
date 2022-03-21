@@ -25,8 +25,8 @@ public class StaffRowMapper implements RowMapper<Staff> {
         staff.setLastName(rs.getString(COL_LAST_NAME));
         staff.setPhone(rs.getString(COL_PHONE));
         staff.setEmail(rs.getString(COL_EMAIL));
-        staff.setStaffPositionId(rs.getInt(COL_STAFF_POSITION_ID));
-        staff.setClockStatusId(rs.getInt(COL_CLOCK_STATUS_ID));
+        staff.setStaffPosition(rs.getString(COL_STAFF_POSITION_ID));
+        staff.setClockStatus(rs.getString(COL_CLOCK_STATUS_ID));
         staff.setPassword(rs.getString(COL_PASSWORD));
         staff.setIsActive(rs.getInt(COL_IS_ACTIVE));
         return staff;

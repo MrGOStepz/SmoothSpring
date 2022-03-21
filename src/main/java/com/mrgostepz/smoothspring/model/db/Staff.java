@@ -2,12 +2,16 @@ package com.mrgostepz.smoothspring.model.db;
 
 import com.mrgostepz.smoothspring.model.enumtype.ClockStatus;
 import com.mrgostepz.smoothspring.model.enumtype.StaffPosition;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @ToString
 public class Staff {
     private Integer Id = 0;
