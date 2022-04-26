@@ -1,7 +1,7 @@
 package com.mrgostepz.smoothspring.controller;
 
-import com.mrgostepz.smoothspring.model.db.Customer;
-import com.mrgostepz.smoothspring.service.CustomerService;
+import com.mrgostepz.smoothspring.model.db.Product;
+import com.mrgostepz.smoothspring.service.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -24,62 +24,62 @@ import java.util.List;
 // @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
-@RequestMapping(path = "api/v1/customer")
+@RequestMapping(path = "api/v1/product")
 class ProductController {
 
     private static final Logger logger = LogManager.getLogger(ProductController.class);
 
-    private final CustomerService customerService;
+    private final ProductService productService;
 
-    public ProductController(CustomerService customerService) {
-        this.customerService = customerService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping(path = "/all")
     @ResponseBody
-    public ResponseEntity<List<Customer>> getAllCustomer() {
-        return new ResponseEntity<>(customerService.getAllCustomer(), HttpStatus.OK);
+    public ResponseEntity<List<Product>> getAllProduct() {
+        return new ResponseEntity<>(productService.getAllProduct(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
     @ResponseBody
-    public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
-        Customer customer = customerService.getAllCustomerById(id);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+    public ResponseEntity<Product> getProductById(@PathVariable int id) {
+        Product product = productService.getAllProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @GetMapping(path = "/")
     @ResponseBody
-    public ResponseEntity<List<Customer>> getCustomerById(@RequestParam String columnName, @RequestParam String value) {
-        List<Customer> customerList = customerService.getCustomerByColumn(columnName, value);
-        return new ResponseEntity<>(customerList, HttpStatus.OK);
+    public ResponseEntity<List<Product>> getProductById(@RequestParam String columnName, @RequestParam String value) {
+        List<Product> productList = productService.getProductByColumn(columnName, value);
+        return new ResponseEntity<>(productList, HttpStatus.OK);
 
     }
 
     @GetMapping(path = "/phone/{phone}")
     @ResponseBody
-    public ResponseEntity<Customer> getCustomerByPassword(@PathVariable String phone) {
+    public ResponseEntity<Product> getProductByPassword(@PathVariable String phone) {
 
-        Customer customer = customerService.getCustomerByPhone(phone);
-        return new ResponseEntity<>(customer, HttpStatus.OK);
+        Product product = productService.getProductByPhone(phone);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
     @PostMapping(path = "/add")
     @ResponseBody
-    public ResponseEntity<String> addNewCustomer(@RequestBody Customer customer) {
-        customerService.addNewCustomer(customer);
-        return new ResponseEntity<>(String.format("Add new customer successfully: %s", customer.toString()), HttpStatus.CREATED);
+    public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
+        productService.addNewProduct(product);
+        return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/update")
-    public String updateCustomer(@RequestBody Customer customer) {
-        customerService.updateCustomer(customer);
-        return String.format("Update Customer: %s completed.", customer);
+    public String updateProduct(@RequestBody Product product) {
+        productService.updateProduct(product);
+        return String.format("Update Product: %s completed.", product);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCustomer(@PathVariable int id) {
-        customerService.deleteCustomer(id);
-        return String.format("Delete Customer Id: %d completed.", id);
+    public String deleteProduct(@PathVariable int id) {
+        productService.deleteProduct(id);
+        return String.format("Delete Product Id: %d completed.", id);
     }
 }
