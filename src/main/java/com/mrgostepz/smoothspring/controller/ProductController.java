@@ -2,6 +2,7 @@ package com.mrgostepz.smoothspring.controller;
 
 import com.mrgostepz.smoothspring.model.db.Product;
 import com.mrgostepz.smoothspring.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -24,16 +25,13 @@ import java.util.List;
 // @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1/product")
 class ProductController {
 
     private static final Logger logger = LogManager.getLogger(ProductController.class);
 
     private final ProductService productService;
-
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
 
     @GetMapping(path = "/all")
     @ResponseBody
@@ -44,7 +42,7 @@ class ProductController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<Product> getProductById(@PathVariable int id) {
-        Product product = productService.getAllProductById(id);
+        Product product = productService.getProductById(id);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
@@ -56,18 +54,10 @@ class ProductController {
 
     }
 
-    @GetMapping(path = "/phone/{phone}")
-    @ResponseBody
-    public ResponseEntity<Product> getProductByPassword(@PathVariable String phone) {
-
-        Product product = productService.getProductByPhone(phone);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
-        productService.addNewProduct(product);
+        productService.addProduct(product);
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }
 

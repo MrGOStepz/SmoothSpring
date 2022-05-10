@@ -5,6 +5,7 @@ import com.mrgostepz.smoothspring.model.db.Customer;
 import com.mrgostepz.smoothspring.model.db.Customer;
 import com.mrgostepz.smoothspring.model.db.Customer;
 import com.mrgostepz.smoothspring.service.CustomerService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -27,16 +28,13 @@ import java.util.List;
 // @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1/customer")
 class CustomerController {
 
     private static final Logger logger = LogManager.getLogger(CustomerController.class);
 
     private final CustomerService customerService;
-
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
 
     @GetMapping(path = "/all")
     @ResponseBody
@@ -47,7 +45,7 @@ class CustomerController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
-        Customer customer = customerService.getAllCustomerById(id);
+        Customer customer = customerService.getCustomerById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
@@ -70,7 +68,7 @@ class CustomerController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewCustomer(@RequestBody Customer customer) {
-        customerService.addNewCustomer(customer);
+        customerService.addCustomer(customer);
         return new ResponseEntity<>(String.format("Add new customer successfully: %s", customer.toString()), HttpStatus.CREATED);
     }
 

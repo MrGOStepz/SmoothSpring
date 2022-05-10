@@ -2,11 +2,11 @@ package com.mrgostepz.smoothspring.model.db;
 
 import java.sql.Date;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 public class Order {
     private int id;
     private Date orderAt;

@@ -4,6 +4,7 @@ import com.mrgostepz.smoothspring.exception.InsertRecordException;
 import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import com.mrgostepz.smoothspring.db.repository.StaffRepository;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -11,14 +12,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StaffService {
     private static final Logger logger = LogManager.getLogger(StaffService.class);
 
     private final StaffRepository staffRepository;
-
-    public StaffService(StaffRepository staffRepository) {
-        this.staffRepository = staffRepository;
-    }
 
     public List<Staff> getAllStaff() {
         List<Staff> staffList = staffRepository.getAll();
@@ -29,7 +27,7 @@ public class StaffService {
         return staffRepository.getAll();
     }
 
-    public Staff getAllStaffById(int id) {
+    public Staff getStaffById(int id) {
         Staff staff = staffRepository.getById(id);
         if (staff == null) {
             throw new RecordNotFoundException("There is no staff in this id.");
@@ -48,7 +46,7 @@ public class StaffService {
         return staff;
     }
 
-    public void addNewStaff(Staff staff) {
+    public void addStaff(Staff staff) {
         int staffId = staffRepository.add(staff);
         staff.setId(staffId);
         if (staffId > 0) {

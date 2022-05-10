@@ -5,6 +5,7 @@ import java.util.List;
 import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
 import com.mrgostepz.smoothspring.model.db.Staff;
 import com.mrgostepz.smoothspring.service.StaffService;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 // @RequestParam means it is a parameter from the GET or POST request
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "api/v1/staff")
 class StaffController {
 
     private static final Logger logger = LogManager.getLogger(StaffController.class);
 
     private final StaffService staffService;
-
-    public StaffController(StaffService staffService) {
-        this.staffService = staffService;
-    }
 
     @GetMapping(path = "/all")
     @ResponseBody
@@ -47,7 +45,7 @@ class StaffController {
     @GetMapping(path = "/{id}")
     @ResponseBody
     public ResponseEntity<Staff> getStaffById(@PathVariable int id) {
-        Staff staff = staffService.getAllStaffById(id);
+        Staff staff = staffService.getStaffById(id);
         return new ResponseEntity<>(staff, HttpStatus.OK);
     }
 
@@ -69,7 +67,7 @@ class StaffController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewStaff(@RequestBody Staff staff) {
-        staffService.addNewStaff(staff);
+        staffService.addStaff(staff);
         return new ResponseEntity<>(String.format("Add new staff successfully: %s", staff.toString()), HttpStatus.CREATED);
 
     }

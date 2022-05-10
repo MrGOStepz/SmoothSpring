@@ -1,12 +1,12 @@
 package com.mrgostepz.smoothspring.model.db;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
 
-@Setter
-@Getter
+@Data
 public class Customer {
     private int id;
     private String firstName;

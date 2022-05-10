@@ -3,6 +3,7 @@ package com.mrgostepz.smoothspring.service;
 import com.mrgostepz.smoothspring.db.repository.CustomerRepository;
 import com.mrgostepz.smoothspring.exception.RecordNotFoundException;
 import com.mrgostepz.smoothspring.model.db.Customer;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -10,14 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
     private static final Logger logger = LogManager.getLogger(CustomerService.class);
 
     private final CustomerRepository customerRepository;
-
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     public List<Customer> getAllCustomer() {
         List<Customer> customerList = customerRepository.getAll();
@@ -28,7 +26,7 @@ public class CustomerService {
         return customerRepository.getAll();
     }
 
-    public Customer getAllCustomerById(int id) {
+    public Customer getCustomerById(int id) {
         Customer customer = customerRepository.getById(id);
         if (customer == null) {
             throw new RecordNotFoundException("There is no customer in this id.");
@@ -46,7 +44,7 @@ public class CustomerService {
         return customer;
     }
 
-    public void addNewCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
         int customerId = customerRepository.add(customer);
         customer.setId(customerId);
         if (customerId > 0) {
