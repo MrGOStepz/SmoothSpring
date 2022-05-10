@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static com.mrgostepz.smoothspring.db.ColumnName.COL_CLOCK_STATUS_ID;
+import static com.mrgostepz.smoothspring.db.ColumnName.CLOCK_STATUS;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_EMAIL;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_FIRST_NAME;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_IS_ACTIVE;
@@ -14,7 +14,7 @@ import static com.mrgostepz.smoothspring.db.ColumnName.COL_LAST_NAME;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_PASSWORD;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_PHONE;
 import static com.mrgostepz.smoothspring.db.ColumnName.COL_STAFF_ID;
-import static com.mrgostepz.smoothspring.db.ColumnName.COL_STAFF_POSITION_ID;
+import static com.mrgostepz.smoothspring.db.ColumnName.STAFF_POSITION;
 
 public class StaffRowMapper implements RowMapper<Staff> {
     @Override
@@ -25,8 +25,8 @@ public class StaffRowMapper implements RowMapper<Staff> {
         staff.setLastName(rs.getString(COL_LAST_NAME));
         staff.setPhone(rs.getString(COL_PHONE));
         staff.setEmail(rs.getString(COL_EMAIL));
-        staff.setStaffPosition(rs.getString(COL_STAFF_POSITION_ID));
-        staff.setClockStatus(rs.getString(COL_CLOCK_STATUS_ID));
+        staff.setStaffPosition(rs.getString(STAFF_POSITION));
+        staff.setClockStatus(rs.getString(CLOCK_STATUS));
         staff.setPassword(rs.getString(COL_PASSWORD));
         staff.setIsActive(rs.getInt(COL_IS_ACTIVE));
         return staff;

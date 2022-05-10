@@ -1,10 +1,9 @@
 package com.mrgostepz.smoothspring.db.dao;
 
-import com.mrgostepz.smoothspring.db.repository.CrudRepository;
 import com.mrgostepz.smoothspring.db.repository.IngredientRepository;
 import com.mrgostepz.smoothspring.db.rowmapper.IngredientRowMapper;
-import com.mrgostepz.smoothspring.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smoothspring.model.db.Ingredient;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -25,19 +24,15 @@ import static com.mrgostepz.smoothspring.db.sql.IngredientSQL.SQL_GET_ALL_INGRED
 import static com.mrgostepz.smoothspring.db.sql.IngredientSQL.SQL_GET_INGREDIENT_BY_COLUMN;
 import static com.mrgostepz.smoothspring.db.sql.IngredientSQL.SQL_GET_INGREDIENT_BY_ID;
 import static com.mrgostepz.smoothspring.db.sql.IngredientSQL.SQL_UPDATE_INGREDIENT;
-import static com.mrgostepz.smoothspring.db.sql.ProductSQL.SQL_GET_PRODUCT_BY_COLUMN;
 
 
 @Service
-public class IngredientDAO implements IngredientRepository, CrudRepository<Ingredient, Integer> {
+@RequiredArgsConstructor
+public class IngredientDAO implements IngredientRepository {
 
     private static final Logger logger = LogManager.getLogger(IngredientDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
-
-    public IngredientDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Ingredient> getAll() {

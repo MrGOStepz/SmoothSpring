@@ -1,9 +1,9 @@
 package com.mrgostepz.smoothspring.db.dao;
 
-import com.mrgostepz.smoothspring.db.repository.CrudRepository;
 import com.mrgostepz.smoothspring.db.repository.StaffRepository;
 import com.mrgostepz.smoothspring.db.rowmapper.StaffRowMapper;
 import com.mrgostepz.smoothspring.model.db.Staff;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -29,15 +29,12 @@ import static com.mrgostepz.smoothspring.db.sql.StaffSQL.SQL_UPDATE_STAFF;
 
 //https://mkyong.com/spring/spring-jdbctemplate-querying-examples/
 @Service
-public class StaffDAO implements StaffRepository, CrudRepository<Staff, Integer> {
+@RequiredArgsConstructor
+public class StaffDAO implements StaffRepository {
 
     private static final Logger logger = LogManager.getLogger(StaffDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
-
-    public StaffDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Staff> getAll() {

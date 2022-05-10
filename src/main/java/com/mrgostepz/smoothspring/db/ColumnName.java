@@ -8,12 +8,12 @@ public class ColumnName {
     public static final String COL_PHONE = "PHONE";
     public static final String COL_EMAIL = "EMAIL";
     public static final String COL_PASSWORD = "PASSWORD";
-    public static final String COL_STAFF_POSITION_ID = "STAFF_POSITION_ID";
+    public static final String STAFF_POSITION = "STAFF_POSITION";
     public static final String COL_STAFF_POSITION_NAME = "STAFF_POSITION_NAME";
     public static final String COL_STAFF_TIME_SHEET_ID = "STAFF_TIME_SHEET_ID";
     public static final String COL_CLOCK_IN_TIME = "CLOCK_IN_TIME";
     public static final String COL_CLOCK_OUT_TIME = "CLOCK_OUT_TIME";
-    public static final String COL_CLOCK_STATUS_ID = "CLOCK_STATUS_ID";
+    public static final String CLOCK_STATUS = "CLOCK_STATUS";
     public static final String COL_CLOCK_STATUS_NAME = "CLOCK_STATUS_NAME";
     public static final String COL_COOK_STATUS_ID = "COOK_STATUS_ID";
     public static final String COL_COOK_STATUS_NAME = "COOK_STATUS_NAME";

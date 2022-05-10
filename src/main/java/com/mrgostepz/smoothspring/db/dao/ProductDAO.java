@@ -1,9 +1,9 @@
 package com.mrgostepz.smoothspring.db.dao;
 
-import com.mrgostepz.smoothspring.db.repository.CrudRepository;
 import com.mrgostepz.smoothspring.db.repository.ProductRepository;
 import com.mrgostepz.smoothspring.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smoothspring.model.db.Product;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -27,15 +27,12 @@ import static com.mrgostepz.smoothspring.db.sql.ProductSQL.SQL_UPDATE_PRODUCT;
 
 
 @Service
-public class ProductDAO implements ProductRepository, CrudRepository<Product, Integer> {
+@RequiredArgsConstructor
+public class ProductDAO implements ProductRepository {
 
     private static final Logger logger = LogManager.getLogger(ProductDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
-
-    public ProductDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Product> getAll() {

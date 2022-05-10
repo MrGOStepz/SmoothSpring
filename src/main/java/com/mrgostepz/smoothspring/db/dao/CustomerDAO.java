@@ -1,11 +1,12 @@
 package com.mrgostepz.smoothspring.db.dao;
 
-import com.mrgostepz.smoothspring.db.repository.CrudRepository;
 import com.mrgostepz.smoothspring.db.repository.CustomerRepository;
 import com.mrgostepz.smoothspring.db.rowmapper.CustomerRowMapper;
 import com.mrgostepz.smoothspring.model.db.Customer;
+import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.context.annotation.Primary;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -28,15 +29,12 @@ import static com.mrgostepz.smoothspring.db.sql.CustomerSQL.SQL_UPDATE_CUSTOMER;
 
 
 @Service
-public class CustomerDAO implements CustomerRepository, CrudRepository<Customer, Integer> {
+@RequiredArgsConstructor
+public class CustomerDAO implements CustomerRepository {
 
     private static final Logger logger = LogManager.getLogger(CustomerDAO.class);
 
     private final JdbcTemplate jdbcTemplate;
-
-    public CustomerDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     @Override
     public List<Customer> getAll() {
