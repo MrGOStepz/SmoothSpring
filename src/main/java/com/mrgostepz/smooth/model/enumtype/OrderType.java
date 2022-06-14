@@ -3,6 +3,7 @@ package com.mrgostepz.smooth.model.enumtype;
 public enum OrderType {
     DINE_IN("Dine-In"),
     TAKEAWAY("Takeaway"),
+    SET("Set"),
     DELIVERY("Delivery");
 
     private final String value;

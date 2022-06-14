@@ -3,12 +3,10 @@ package com.mrgostepz.smooth.model.db;
 import lombok.Data;
 
 @Data
-public class Product {
+public class TableCurrent {
     private Integer id;
     private String name;
-    private String description;
-    private Integer stock;
-    private Double price;
-    private Integer isAvailable;
+    private Integer orderId;
+    private Integer statusId;
     private Integer isActive;
 }

@@ -4,13 +4,12 @@ import lombok.Data;
 
 @Data
 public class OrderDetail {
-    private int orderDetailId;
-    private int productId;
-    private int popupItemId;
-    private int orderId;
-    private String cookStatus;
-    private int productQuality;
-    private Double amount;
+    private Integer id;
+    private Integer productId;
+    private Integer orderId;
+    private String statusId;
+    private Integer productQuality;
+    private Double price;
     private String comment;
-    private int isActive;
+    private Integer isActive;
 }
