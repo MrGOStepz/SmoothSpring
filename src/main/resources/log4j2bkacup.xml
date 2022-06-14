@@ -11,7 +11,7 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="com.mrgostepz.smoothspring" level="debug" additivity="false">
+        <Logger name="com.mrgostepz.smooth" level="debug" additivity="false">
             <AppenderRef ref="ConsoleAppender" />
         </Logger>
 
