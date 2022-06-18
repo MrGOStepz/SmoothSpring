@@ -24,6 +24,7 @@ public class ColumnName {
     public static final String COL_DATE_OF_BIRTH = "DOB";
     public static final String COL_CARD = "CARD";
     public static final String COL_FOOD_TYPE_ID = "FOOD_TYPE_ID";
+    public static final String COL_FOOD_TYPE = "FOOD_TYPE";
     public static final String COL_FOOD_TYPE_NAME = "FOOD_TYPE_NAME";
     public static final String COL_INGREDIENT_ID = "INGREDIENT_ID";
     public static final String COL_INGREDIENT_NAME = "INGREDIENT_NAME";

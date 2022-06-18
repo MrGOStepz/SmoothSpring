@@ -60,27 +60,24 @@ public class ProductDAO implements ProductRepository {
         assert dataSource != null;
         try (Connection connection = dataSource.getConnection();
              PreparedStatement statement = connection.prepareStatement(SQL_ADD_PRODUCT, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, product.getProductName());
+            statement.setString(1, product.getName());
             statement.setString(2, product.getDescription());
             statement.setInt(3, product.getIsAvailable());
-            statement.setInt(4, product.getProductIngredientId());
-            statement.setInt(5, product.getPopupId());
-            statement.setInt(6, product.getStock());
-            statement.setDouble(7, product.getPrice());
-            statement.setString(8, product.getProductImagePath());
-            statement.setInt(9, product.getFoodTypeId());
-            statement.setInt(10, product.getIsActive());
+            statement.setInt(4, product.getStock());
+            statement.setDouble(5, product.getPrice());
+            statement.setString(6, product.getFoodType());
+            statement.setInt(7, product.getIsActive());
 
             int affectedRows = statement.executeUpdate();
 
             if (affectedRows == 0) {
-                throw new SQLException("Creating staff failed, no rows affected.");
+                throw new SQLException("Creating product failed, no rows affected.");
             }
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     product.setId(generatedKeys.getInt(1));
                 } else {
-                    throw new SQLException("Creating staff failed, no ID obtained.");
+                    throw new SQLException("Creating product failed, no ID obtained.");
                 }
             }
             return product.getId();
@@ -96,15 +93,12 @@ public class ProductDAO implements ProductRepository {
     public Boolean update(Product product) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
-                    product.getProductName(),
+                    product.getName(),
                     product.getDescription(),
                     product.getIsAvailable(),
-                    product.getProductIngredientId(),
-                    product.getPopupId(),
                     product.getStock(),
                     product.getPrice(),
-                    product.getProductImagePath(),
-                    product.getFoodTypeId(),
+                    product.getFoodType(),
                     product.getIsActive(),
                     product.getId());
             return result == 1;

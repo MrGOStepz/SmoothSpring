@@ -1,6 +1,5 @@
 package com.mrgostepz.smooth.service;
 
-import com.mrgostepz.smooth.db.repository.IngredientRepository;
 import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;

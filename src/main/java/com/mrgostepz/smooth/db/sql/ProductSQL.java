@@ -1,6 +1,7 @@
 package com.mrgostepz.smooth.db.sql;
 
 import static com.mrgostepz.smooth.db.ColumnName.COL_DESCRIPTION;
+import static com.mrgostepz.smooth.db.ColumnName.COL_FOOD_TYPE;
 import static com.mrgostepz.smooth.db.ColumnName.COL_FOOD_TYPE_ID;
 import static com.mrgostepz.smooth.db.ColumnName.COL_IS_AVAILABLE;
 import static com.mrgostepz.smooth.db.ColumnName.COL_POPUP_ID;
@@ -20,27 +21,19 @@ public class ProductSQL {
     public static final String SQL_GET_PRODUCT_BY_COLUMN = "SELECT ? FROM " + TABLE_PRODUCT + " WHERE ? = ?";
     public static final String SQL_ADD_PRODUCT = "INSERT INTO " + TABLE_PRODUCT + " ("
             + COL_PRODUCT_NAME + ", "
-            + COL_SHORT_NAME + ", "
             + COL_DESCRIPTION + ", "
             + COL_IS_AVAILABLE + ", "
-            + COL_PRODUCT_INGREDIENT_ID + ", "
-            + COL_POPUP_ID + ", "
             + COL_STOCK + ", "
             + COL_PRICE + ", "
-            + COL_PRODUCT_IMAGE_PATH + ", "
-            + COL_FOOD_TYPE_ID + ", "
-            + COL_IS_ACTIVE +") VALUE(?,?,?,?,?,?,?,?,?,?);";
+            + COL_FOOD_TYPE + ", "
+            + COL_IS_ACTIVE +") VALUE(?,?,?,?,?,?,?);";
     public static final String SQL_UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCT + " SET("
             + COL_PRODUCT_NAME + " = ?, "
-            + COL_SHORT_NAME + " = ?, "
             + COL_DESCRIPTION + " = ?, "
             + COL_IS_AVAILABLE + " = ?, "
-            + COL_PRODUCT_INGREDIENT_ID + " = ?, "
-            + COL_POPUP_ID + " = ?, "
             + COL_STOCK + " = ?, "
             + COL_PRICE + " = ?, "
-            + COL_PRODUCT_IMAGE_PATH + " = ?, "
-            + COL_FOOD_TYPE_ID + " = ?) WHERE "
+            + COL_FOOD_TYPE + " = ?) WHERE "
             + COL_PRODUCT_ID + " = ?;";
     public static final String SQL_DELETE_PRODUCT = "DELETE FROM " + TABLE_PRODUCT + " WHERE " + COL_PRODUCT_ID + "} = ?;";
 }
