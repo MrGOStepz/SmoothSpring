@@ -68,6 +68,7 @@ public class ColumnName {
     public static final String COL_TABLE_SECTION_ID = "TABLE_SECTION_ID";
     public static final String COL_TABLE_SECTION_NAME = "TABLE_SECTION_NAME";
     public static final String COL_U_NAME = "U_NAME";
+    public static final String COL_NAME = "NAME";
     public static final String COL_MARGIN_TOP = "MARGIN_TOP";
     public static final String COL_MARGIN_BOTTOM = "MARGIN_BOTTOM";
     public static final String COL_MARGIN_LEFT = "MARGIN_LEFT";
@@ -83,4 +84,5 @@ public class ColumnName {
     public static final String COL_LOCATION_TAB_ID = "LOCATION_TAP_ID";
     public static final String COL_LOCATION_TAB_NAME = "LOCATION_NAME";
     public static final String COL_LOCATION_ORDER = "LOCATION_ORDER";
+    public static final String COL_ID = "ID";
 }
