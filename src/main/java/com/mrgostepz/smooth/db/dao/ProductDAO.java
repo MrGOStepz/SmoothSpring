@@ -3,6 +3,7 @@ package com.mrgostepz.smooth.db.dao;
 import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.db.rowmapper.ProductRowMapper;
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.db.SetMenu;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -90,6 +91,11 @@ public class ProductDAO implements ProductRepository {
     }
 
     @Override
+    public Integer addSetMenu(SetMenu setMenu) {
+        return null;
+    }
+
+    @Override
     public Boolean update(Product product) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
@@ -128,4 +134,6 @@ public class ProductDAO implements ProductRepository {
             throw ex;
         }
     }
+
+
 }

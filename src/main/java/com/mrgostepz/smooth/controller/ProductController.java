@@ -1,6 +1,7 @@
 package com.mrgostepz.smooth.controller;
 
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.db.SetMenu;
 import com.mrgostepz.smooth.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
@@ -57,6 +58,13 @@ class ProductController {
     @PostMapping(path = "/add")
     @ResponseBody
     public ResponseEntity<String> addNewProduct(@RequestBody Product product) {
+        productService.addProduct(product);
+        return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "set/add")
+    @ResponseBody
+    public ResponseEntity<String> addNewProduct(@RequestBody SetMenu setMenu) {
         productService.addProduct(product);
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }

@@ -4,6 +4,7 @@ import com.mrgostepz.smooth.db.repository.ProductRepository;
 import com.mrgostepz.smooth.exception.InsertRecordException;
 import com.mrgostepz.smooth.exception.RecordNotFoundException;
 import com.mrgostepz.smooth.model.db.Product;
+import com.mrgostepz.smooth.model.db.SetMenu;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,6 +40,17 @@ public class ProductService {
 
     public void addProduct(Product product) {
         int productId = productRepository.add(product);
+        product.setId(productId);
+        if (productId > 0) {
+            logger.info("Add new product Successfully: {}", product);
+        } else {
+            logger.warn("Cannot add new product: {}", product);
+            throw new InsertRecordException("Cannot Create");
+        }
+    }
+
+    public void addSetMenu(SetMenu setMenu) {
+        int productId = productRepository.add(setMenu);
         product.setId(productId);
         if (productId > 0) {
             logger.info("Add new product Successfully: {}", product);
