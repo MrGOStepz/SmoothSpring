@@ -61,6 +61,8 @@ public class ColumnName {
     public static final String COL_DESCRIPTION = "DESCRIPTION";
     public static final String COL_IS_AVAILABLE = "IS_AVAILABLE";
     public static final String COL_PRODUCT_INGREDIENT_ID = "PRODUCT_INGREDIENT_ID";
+    public static final String COL_LIST_PRODUCT = "LIST_PRODUCT";
+
     public static final String COL_STOCK = "STOCK";
     public static final String COL_PRODUCT_IMAGE_PATH = "PRODUCT_IMAGE_PATH";
     public static final String COL_SECTION_ID = "SECTION_ID";

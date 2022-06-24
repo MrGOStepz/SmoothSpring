@@ -62,13 +62,6 @@ class ProductController {
         return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
     }
 
-    @PostMapping(path = "set/add")
-    @ResponseBody
-    public ResponseEntity<String> addNewProduct(@RequestBody SetMenu setMenu) {
-        productService.addProduct(product);
-        return new ResponseEntity<>(String.format("Add new product successfully: %s", product.toString()), HttpStatus.CREATED);
-    }
-
     @PutMapping(path = "/update")
     public String updateProduct(@RequestBody Product product) {
         productService.updateProduct(product);

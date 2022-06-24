@@ -49,17 +49,6 @@ public class ProductService {
         }
     }
 
-    public void addSetMenu(SetMenu setMenu) {
-        int productId = productRepository.add(setMenu);
-        product.setId(productId);
-        if (productId > 0) {
-            logger.info("Add new product Successfully: {}", product);
-        } else {
-            logger.warn("Cannot add new product: {}", product);
-            throw new InsertRecordException("Cannot Create");
-        }
-    }
-
     public void updateProduct(Product product) {
         if (Boolean.TRUE.equals(productRepository.update(product))) {
             logger.info("Update product Successfully: {}", product);

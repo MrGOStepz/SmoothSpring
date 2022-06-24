@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.StringJoiner;
 
 import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_ADD_PRODUCT;
 import static com.mrgostepz.smooth.db.sql.ProductSQL.SQL_DELETE_PRODUCT;
@@ -67,7 +68,17 @@ public class ProductDAO implements ProductRepository {
             statement.setInt(4, product.getStock());
             statement.setDouble(5, product.getPrice());
             statement.setString(6, product.getFoodType());
-            statement.setInt(7, product.getIsActive());
+            if (product.getListProductIds() != null) {
+                StringJoiner listProducts = new StringJoiner(",");
+                for (Integer id : product.getListProductIds()) {
+                    listProducts.add(id.toString());
+                }
+                statement.setString(7, listProducts.toString());
+            } else {
+                statement.setString(7, null);
+            }
+
+            statement.setInt(8, product.getIsActive());
 
             int affectedRows = statement.executeUpdate();
 
@@ -91,11 +102,6 @@ public class ProductDAO implements ProductRepository {
     }
 
     @Override
-    public Integer addSetMenu(SetMenu setMenu) {
-        return null;
-    }
-
-    @Override
     public Boolean update(Product product) {
         try {
             int result = jdbcTemplate.update(SQL_UPDATE_PRODUCT,
@@ -105,6 +111,7 @@ public class ProductDAO implements ProductRepository {
                     product.getStock(),
                     product.getPrice(),
                     product.getFoodType(),
+                    product.getListProductIds(),
                     product.getIsActive(),
                     product.getId());
             return result == 1;

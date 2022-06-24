@@ -4,6 +4,7 @@ import static com.mrgostepz.smooth.db.ColumnName.COL_DESCRIPTION;
 import static com.mrgostepz.smooth.db.ColumnName.COL_FOOD_TYPE;
 import static com.mrgostepz.smooth.db.ColumnName.COL_ID;
 import static com.mrgostepz.smooth.db.ColumnName.COL_IS_AVAILABLE;
+import static com.mrgostepz.smooth.db.ColumnName.COL_LIST_PRODUCT;
 import static com.mrgostepz.smooth.db.ColumnName.COL_NAME;
 import static com.mrgostepz.smooth.db.ColumnName.COL_PRICE;
 import static com.mrgostepz.smooth.db.ColumnName.COL_IS_ACTIVE;
@@ -21,7 +22,8 @@ public class ProductSQL {
             + COL_STOCK + ", "
             + COL_PRICE + ", "
             + COL_FOOD_TYPE + ", "
-            + COL_IS_ACTIVE +") VALUE(?,?,?,?,?,?,?);";
+            + COL_LIST_PRODUCT + ", "
+            + COL_IS_ACTIVE +") VALUE(?,?,?,?,?,?,?,?);";
     public static final String SQL_UPDATE_PRODUCT = "UPDATE " + TABLE_PRODUCT + " SET "
             + COL_NAME + " = ?, "
             + COL_DESCRIPTION + " = ?, "
@@ -29,6 +31,7 @@ public class ProductSQL {
             + COL_STOCK + " = ?, "
             + COL_PRICE + " = ?, "
             + COL_FOOD_TYPE + " = ?, "
+            + COL_LIST_PRODUCT + " = ?, "
             + COL_IS_ACTIVE + " = ? WHERE "
             + COL_ID + " = ?;";
     public static final String SQL_DELETE_PRODUCT = "DELETE FROM " + TABLE_PRODUCT + " WHERE " + COL_ID + " = ?;";
